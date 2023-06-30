@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .payment-form {
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form">
+        <h2>Payment Gateway</h2>
+        <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" placeholder="Card Number" maxlength="16">
+        </div>
+        <div class="form-group">
+            <label for="cardName">Cardholder Name</label>
+            <input type="text" id="cardName" placeholder="Cardholder Name">
+        </div>
+        <div class="form-group">
+            <label for="expiry">Expiry Date</label>
+            <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+        </div>
+        <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="number" id="cvv" placeholder="CVV" maxlength="4">
+        </div>
+        <button class="btn" onclick="processPayment()">Pay Now</button>
+    </div>
+
+    <script>
+        function processPayment() {
+            var cardNumber = document.getElementById('cardNumber').value.trim();
+            var cardName = document.getElementById('cardName').value.trim();
+            var expiry = document.getElementById('expiry').value.trim();
+            var cvv = document.getElementById('cvv').value.trim();
+
+            if (cardNumber === '' || cardName === '' || expiry === '' || cvv === '') {
+                alert('Please fill in all the fields.');
+                return;
+            }
+
+            if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+                alert('Invalid card number. Please enter a valid 16-digit card number.');
+                return;
+            }
+
+            if (expiry.length !== 5 || !/^\d{2}\/\d{2}$/.test(expiry)) {
+                alert('Invalid expiry date. Please enter in MM/YY format.');
+                return;
+            }
+
+            if (cvv.length !== 3 && cvv.length !== 4) {
+                alert('Invalid CVV. Please enter a valid 3 or 4-digit CVV.');
+                return;
+            }
+
+            // Perform further validation and processing (in a real application, this would be done on the server side)
+            alert('Payment processed successfully!');
+        }
+    </script>
+</body>
+</html>
